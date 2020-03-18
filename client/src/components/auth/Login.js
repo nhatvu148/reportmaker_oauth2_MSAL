@@ -1,7 +1,9 @@
 import React from "react";
 import "antd/dist/antd.css";
 import "../Style.css";
-import { Button, Row, Col } from "antd";
+import { Button, Row, Col, Card } from "antd";
+import { withRouter } from "react-router-dom";
+import Microsoft from "./microsoft.png";
 
 import PropTypes from "prop-types";
 import AuthProvider from "./AuthProvider";
@@ -25,18 +27,54 @@ const Login = props => {
         lg={8}
         style={{ height: "730px", textAlign: "center" }}
       >
-        <Button
-          size="large"
-          type="primary"
-          htmlType="submit"
-          className="login-form-button"
-          onClick={() => {
-            props.onSignIn();
-            // props.history.push("/inputdata");
+        <Card
+          style={{
+            margin: "auto",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            borderColor: "#1890ff",
+            borderWidth: "1.5px",
+            padding: "40px 20px"
           }}
+          bordered={true}
         >
-          Log in
-        </Button>
+          <div className="logo">
+            <h2>
+              <a
+                href="http://www.e-technostar.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  alt="/"
+                  width={160}
+                  src="http://www.e-technostar.com/beta2016/wp-content/uploads/2019/04/technostar_logo_w210.png"
+                />
+              </a>
+            </h2>
+          </div>
+          <h1
+            style={{
+              color: "#1890ff",
+              marginBottom: "50px"
+            }}
+          >
+            Report Maker
+          </h1>
+          <Button
+            size="large"
+            type="default"
+            onClick={() => {
+              props.onSignIn();
+              props.history.push("/weeklyreview");
+            }}
+          >
+            <img src={Microsoft} width="20px" style={{ marginRight: "10px" }} />
+            <span style={{ fontWeight: "bold" }}>Log in with Microsoft</span>
+          </Button>
+        </Card>
       </Col>
     </Row>
   );
@@ -46,4 +84,4 @@ Login.propTypes = {
   onSignIn: PropTypes.func.isRequired
 };
 
-export default AuthProvider(Login);
+export default AuthProvider(withRouter(Login));

@@ -225,12 +225,7 @@ const Home = props => {
                   </Row>
                 </Header>
               </Layout>
-              <Route
-                key="/inputdata"
-                path="/inputdata"
-                exact
-                component={AppContent}
-              />
+              <Route key="/" path="/" exact component={AppContent} />
               <Route
                 key="/weeklyreview"
                 path="/weeklyreview"

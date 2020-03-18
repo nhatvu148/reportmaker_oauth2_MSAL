@@ -6,6 +6,7 @@ import AuthState from "../context/auth/AuthState";
 import AlertState from "../context/alert/AlertState";
 import LangState from "../context/lang/LangState";
 import Login from "./auth/Login";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import AuthProvider from "./auth/AuthProvider";
@@ -14,37 +15,27 @@ const Json = ({ data }) => <pre>{JSON.stringify(data, null, 4)}</pre>;
 
 const App = props => {
   return (
-    <AuthState>
-      <LangState>
-        <MyState>
-          <DailyState>
-            <AlertState>
-              <section>
-                {!props.account ? (
-                  <Login />
-                ) : (
-                  // <button onClick={props.onSignIn}>Sign In</button>
-                  <Home />
-                  // <>
-                  //   <button onClick={props.onSignOut}>Sign Out</button>
-                  // </>
-                )}
+    <Router>
+      <AuthState>
+        <LangState>
+          <MyState>
+            <DailyState>
+              <AlertState>
+                {!props.account ? <Login /> : <Home />}
                 {props.error && <p className="error">Error: {props.error}</p>}
-              </section>
-              <section className="data">
+
                 {props.account && (
                   <div className="data-account">
                     <h2>Session Account Data</h2>
-                    {props.account.userName}
-                    <Json data={props.account.userName} />
+                    <Json data={props.account} />
                   </div>
                 )}
-              </section>
-            </AlertState>
-          </DailyState>
-        </MyState>
-      </LangState>
-    </AuthState>
+              </AlertState>
+            </DailyState>
+          </MyState>
+        </LangState>
+      </AuthState>
+    </Router>
   );
 };
 

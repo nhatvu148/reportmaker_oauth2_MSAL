@@ -48,7 +48,7 @@ const AppSider = props => {
   const { Sider } = Layout;
 
   useEffect(() => {
-    dispatch({ type: SELECT_PAGE, payload: "/inputdata" });
+    dispatch({ type: SELECT_PAGE, payload: "/" });
     // eslint-disable-next-line
   }, []);
 
@@ -81,9 +81,9 @@ const AppSider = props => {
         selectedKeys={selectedKeys}
         onClick={({ key }) => {
           switch (key) {
-            case "/inputdata":
-              dispatch({ type: SELECT_PAGE, payload: "/inputdata" });
-              props.history.push("/inputdata");
+            case "/":
+              dispatch({ type: SELECT_PAGE, payload: "/" });
+              props.history.push("/");
               break;
 
             case "/weeklyreview":
@@ -127,7 +127,7 @@ const AppSider = props => {
           }
         }}
       >
-        <Menu.Item key="/inputdata">
+        <Menu.Item key="/">
           <FormOutlined />
           <span>{_inputDailyData}</span>
         </Menu.Item>
