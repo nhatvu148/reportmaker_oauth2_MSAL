@@ -2,6 +2,7 @@ const langData = {
   "en-US": {
     home: {
       _editProfile: "Edit Profile",
+      _myAccount: "My Account",
       _logOut: "Log out"
     },
     inputDailyData: {
@@ -69,6 +70,7 @@ const langData = {
   ja: {
     home: {
       _editProfile: "プロファイル編集",
+      _myAccount: "マイアカウント",
       _logOut: "ログアウト"
     },
     inputDailyData: {
@@ -136,6 +138,7 @@ const langData = {
   vi: {
     home: {
       _editProfile: "Chỉnh sửa hồ sơ",
+      _myAccount: "Tài khoản của tôi",
       _logOut: "Đăng xuất"
     },
     inputDailyData: {
@@ -203,6 +206,7 @@ const langData = {
   zh: {
     home: {
       _editProfile: "编辑个人资料",
+      _myAccount: "我的帐户",
       _logOut: "登出"
     },
     inputDailyData: {
@@ -270,6 +274,7 @@ const langData = {
   ko: {
     home: {
       _editProfile: "프로필 수정",
+      _myAccount: "내 계정",
       _logOut: "로그 아웃"
     },
     inputDailyData: {

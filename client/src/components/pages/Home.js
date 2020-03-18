@@ -62,12 +62,12 @@ const Home = () => {
 
   const { switchLang, lang, currentLangData } = langContext;
   const {
-    home: { _editProfile, _logOut }
+    home: { _myAccount, _logOut }
   } = currentLangData
     ? currentLangData
     : {
         home: {
-          _editProfile: "Edit Profile",
+          _myAccount: "My Account",
           _logOut: "Log out"
         }
       };
@@ -244,7 +244,7 @@ const Home = () => {
                           {name}
                         </Button>
                         <Drawer
-                          title="My Account"
+                          title={_myAccount}
                           placement="right"
                           closable={false}
                           onClose={onClose}
