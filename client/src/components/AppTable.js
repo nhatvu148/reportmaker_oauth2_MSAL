@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useContext } from "react";
 import MyContext from "../context/table/myContext";
-import AuthContext from "../context/auth/authContext";
 import LangContext from "../context/lang/langContext";
 // import Spinner from "./layout/Spinner";
 import {
@@ -40,7 +39,6 @@ import update from "immutability-helper";
 
 const AppTable = () => {
   const myContext = useContext(MyContext);
-  const authContext = useContext(AuthContext);
   const langContext = useContext(LangContext);
 
   const { lang, currentLangData } = langContext;
@@ -89,10 +87,8 @@ const AppTable = () => {
       };
   // console.log(langContext.currentLangData);
 
-  const { user } = authContext;
-  const name = user && user.name;
-
   const {
+    name,
     selectedDate,
     sameAsDate,
     projects,

@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import MyContext from "../context/table/myContext";
-import AuthContext from "../context/auth/authContext";
 import LangContext from "../context/lang/langContext";
 import ProgressBar from "./layout/ProgressBar";
 import { SELECT_PAGE } from "../context/types";
@@ -22,7 +21,6 @@ import SpreadSheet from "./spreadsheet/SpreadSheet";
 const WeeklyReview = props => {
   // console.log(props.match.path);
   const myContext = useContext(MyContext);
-  const authContext = useContext(AuthContext);
   const langContext = useContext(LangContext);
 
   const { currentLangData } = langContext;
@@ -43,10 +41,7 @@ const WeeklyReview = props => {
 
   const { Content } = Layout;
 
-  const { loading, dispatch } = myContext;
-
-  const { user } = authContext;
-  const name = user && user.name;
+  const { name, loading, dispatch } = myContext;
 
   const [weekSelect, SetWeekSelect] = useState("");
   const [sheetEvent, setSheetEvent] = useState("");

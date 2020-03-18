@@ -74,6 +74,22 @@ handleDisconnect();
 //   res.json({ msg: "Welcome to TechnoStar!" });
 // });
 
+app.get("/api/name", (req, res) => {
+  const { email } = req.query;
+
+  const QUERY_NAME = `SELECT NICKNAME FROM projectdata.m_employee WHERE EMAIL = "${email}"`;
+
+  connection.query(QUERY_NAME, (error, results, fields) => {
+    if (error) {
+      return res.send(error);
+    } else {
+      return res.json({
+        data: results
+      });
+    }
+  });
+});
+
 app.get("/api/workload/get", (req, res) => {
   const { sunday } = req.query;
 
@@ -226,7 +242,7 @@ app.put("/api/projects/update", (req, res) => {
     endhour,
     endmin
   } = req.body.params;
-  console.log(req.body.params);
+  // console.log(req.body.params);
   const UPDATE_PRODUCTS_QUERY = `UPDATE projectdata.t_personalrecode
   SET pjid = '${pjid}', pjname = '${pjname}',
   deadline = (SELECT deadline FROM projectdata.t_projectmaster WHERE pjid = '${pjid}'),

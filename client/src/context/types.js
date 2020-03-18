@@ -22,6 +22,7 @@ export const SELECT_PAGE = "SELECT_PAGE";
 export const RESET_PROJECTS = "RESET_PROJECTS";
 export const QUOTES = "QUOTES";
 export const DRAG_ROW = "DRAG_ROW";
+export const GET_NAME = "GET_NAME";
 
 export const ERROR = "ERROR";
 export const LOGIN_RESPONSE = "LOGIN_RESPONSE";

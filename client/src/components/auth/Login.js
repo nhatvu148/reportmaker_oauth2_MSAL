@@ -54,12 +54,13 @@ const Login = () => {
         onClick={() => {
           onSignIn();
         }}
+        style={{ borderColor: "rgb(89, 89, 89)" }}
       >
         <img
           src={Microsoft}
           alt=""
           width="20px"
-          style={{ marginRight: "10px" }}
+          style={{ marginRight: "10px", paddingBottom: "3px" }}
         />
         <span style={{ fontWeight: "bold" }}>Log in with Microsoft</span>
       </Button>

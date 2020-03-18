@@ -20,12 +20,19 @@ import {
   SELECT_PAGE,
   RESET_PROJECTS,
   QUOTES,
-  DRAG_ROW
+  DRAG_ROW,
+  GET_NAME
 } from "../types";
 import moment from "moment";
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_NAME:
+      return {
+        ...state,
+        name: action.payload
+      };
+
     case DRAG_ROW:
       return {
         ...state,

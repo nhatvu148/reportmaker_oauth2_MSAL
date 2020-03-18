@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import MyContext from "../context/table/myContext";
 import DailyContext from "../context/daily/dailyContext";
-import AuthContext from "../context/auth/authContext";
 import LangContext from "../context/lang/langContext";
 import ProgressBar from "./layout/ProgressBar";
 import { SELECT_PAGE, SORT } from "../context/types";
@@ -13,7 +12,6 @@ const DailyHistory = props => {
   // console.log(props.match.path);
   const myContext = useContext(MyContext);
   const dailyContext = useContext(DailyContext);
-  const authContext = useContext(AuthContext);
   const langContext = useContext(LangContext);
 
   const {
@@ -57,12 +55,9 @@ const DailyHistory = props => {
         }
       };
 
-  const { user } = authContext;
-  const name = user && user.name;
-
   const { Content } = Layout;
 
-  const { dispatch: myDispatch } = myContext;
+  const { name, dispatch: myDispatch } = myContext;
 
   const {
     dispatch: dailyDispatch,

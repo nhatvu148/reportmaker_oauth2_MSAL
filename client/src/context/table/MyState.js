@@ -8,7 +8,8 @@ import {
   GET_DATA_FROM_SAME_AS_DATE,
   SAVE_DATA,
   SET_LOADING,
-  CLEAR_LOGOUT
+  CLEAR_LOGOUT,
+  GET_NAME
 } from "../types";
 import { message } from "antd";
 import moment from "moment";
@@ -26,10 +27,30 @@ const MyState = props => {
     selectedKeys: [],
     quotes: null,
     options: {},
-    isDataEdited: false
+    isDataEdited: false,
+    name: "Welcome"
   };
 
   const [state, dispatch] = useReducer(MyReducer, initialState);
+
+  const getName = async email => {
+    try {
+      const res = await axios.get("api/name", {
+        params: {
+          email
+        }
+      });
+
+      console.log(res.data.data["0"]["NICKNAME"]);
+
+      dispatch({
+        type: GET_NAME,
+        payload: res.data.data["0"]["NICKNAME"]
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getProject = async () => {
     // setLoading();
@@ -76,8 +97,6 @@ const MyState = props => {
         .format("YYYY-MM-DD")
         .split("-")
         .join("");
-
-      // const name = user && user.name;
 
       const res = await axios.get(`api/personal`, {
         params: {
@@ -156,8 +175,6 @@ const MyState = props => {
         .format("YYYY-MM-DD")
         .split("-")
         .join("");
-
-      // const name = user && user.name;
 
       const res = await axios.get(`api/personal`, {
         params: {
@@ -413,12 +430,14 @@ const MyState = props => {
         quotes: state.quotes,
         options: state.options,
         isDataEdited: state.isDataEdited,
+        name: state.name,
         dispatch,
         getProject,
         getDataFromDate,
         getDataFromSameAsDate,
         clearLogout,
-        onSave
+        onSave,
+        getName
       }}
     >
       {props.children}
