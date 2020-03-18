@@ -1,50 +1,45 @@
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
-  CLEAR_ERRORS
+  ERROR,
+  LOGIN_RESPONSE,
+  GRAPH_PROFILE,
+  EMAIL_MESSAGES,
+  ACCOUNT
 } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
-    case USER_LOADED:
+    case ERROR:
       return {
         ...state,
-        isAuthenticated: true,
-        loading: false,
-        user: action.payload
+        error: action.payload
       };
-    case REGISTER_SUCCESS:
-    case LOGIN_SUCCESS:
-      // localStorage.setItem('token', action.payload.token);
+
+    case LOGIN_RESPONSE:
       return {
         ...state,
-        // ...action.payload,
-        isAuthenticated: true
-        // loading: false
-      };
-    case REGISTER_FAIL:
-    case AUTH_ERROR:
-    case LOGIN_FAIL:
-    case LOGOUT:
-      // localStorage.removeItem('token');
-      return {
-        ...state,
-        // token: null,
-        isAuthenticated: false
-        // loading: false,
-        // user: null,
-        // error: action.payload
-      };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
+        account: action.payload,
         error: null
       };
+
+    case GRAPH_PROFILE:
+      return {
+        ...state,
+        graphProfile: action.payload
+      };
+
+    case EMAIL_MESSAGES:
+      return {
+        ...state,
+        emailMessages: action.payload,
+        error: null
+      };
+
+    case ACCOUNT:
+      return {
+        ...state,
+        account: action.payload
+      };
+
     default:
       return state;
   }

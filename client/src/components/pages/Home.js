@@ -16,6 +16,7 @@ import {
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { QUOTES } from "../../context/types";
 
+import Login from "../auth/Login";
 import AppContent from "../AppContent";
 import AppSider from "../AppSider";
 import WeeklyReview from "../WeeklyReview";
@@ -24,21 +25,22 @@ import DailyHistory from "../DailyHistory";
 import WeeklyWorkload from "../WeeklyWorkload";
 import "../Style.css";
 import "antd/dist/antd.css";
+import AuthContext from "../../context/auth/authContext";
 import MyContext from "../../context/table/myContext";
 import DailyContext from "../../context/daily/dailyContext";
 import LangContext from "../../context/lang/langContext";
 import axios from "axios";
 import { SET_LANG } from "../../context/types";
 
-import PropTypes from "prop-types";
-import AuthProvider from "../auth/AuthProvider";
+const Json = ({ data }) => <pre>{JSON.stringify(data, null, 4)}</pre>;
 
-const Home = props => {
+const Home = () => {
+  const authContext = useContext(AuthContext);
   const myContext = useContext(MyContext);
   const dailyContext = useContext(DailyContext);
   const langContext = useContext(LangContext);
 
-  // const { logout, user, loadUser } = authContext;
+  const { account, error, onSignOut, handleCallback } = authContext;
 
   const { clearLogout, quotes, dispatch, isDataEdited } = myContext;
 
@@ -55,6 +57,11 @@ const Home = props => {
           _logOut: "Log out"
         }
       };
+
+  useEffect(() => {
+    handleCallback();
+    // eslint-disable-next-line
+  }, []);
 
   useLayoutEffect(() => {
     const selectedLang = window.localStorage.getItem("appUILang");
@@ -79,7 +86,7 @@ const Home = props => {
   }, [dispatch]);
 
   const onLogout = () => {
-    props.onSignOut();
+    onSignOut();
     clearLogout();
     clearDailyLogout();
     message.info("LOGGED OUT");
@@ -108,7 +115,7 @@ const Home = props => {
     } else {
       greeting = "Good Evening";
     }
-    message.info(greeting + ", " + props.account.userName + " !");
+    message.info(greeting + ", " + account.userName + " !");
   };
 
   const langMenu = (
@@ -180,98 +187,105 @@ const Home = props => {
   );
   return (
     <Router>
-      <Switch>
-        {/* <Route exact path="/login" component={Login} /> */}
-        <Fragment>
-          <Layout>
-            <AppSider isCollapsed={collapsed} />
+      {!account ? (
+        <Login />
+      ) : (
+        <Switch>
+          <Fragment>
             <Layout>
+              <AppSider isCollapsed={collapsed} />
               <Layout>
-                <Header>
-                  <Row type="flex" justify="space-between">
-                    {React.createElement(
-                      collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-                      {
-                        className: "trigger",
-                        onClick: toggle
-                      }
-                    )}
-                    <div>
-                      <Dropdown overlay={langMenu}>
-                        <Button style={{ marginRight: "5px" }}>
-                          {lang === "en-US"
-                            ? "English"
-                            : lang === "ja"
-                            ? "日本語"
-                            : lang === "vi"
-                            ? "Tiếng Việt"
-                            : lang === "zh"
-                            ? "中文"
-                            : lang === "ko"
-                            ? "한국어"
-                            : "Language"}
-                        </Button>
-                      </Dropdown>
+                <Layout>
+                  <Header>
+                    <Row type="flex" justify="space-between">
+                      {React.createElement(
+                        collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                        {
+                          className: "trigger",
+                          onClick: toggle
+                        }
+                      )}
+                      <div>
+                        <Dropdown overlay={langMenu}>
+                          <Button style={{ marginRight: "5px" }}>
+                            {lang === "en-US"
+                              ? "English"
+                              : lang === "ja"
+                              ? "日本語"
+                              : lang === "vi"
+                              ? "Tiếng Việt"
+                              : lang === "zh"
+                              ? "中文"
+                              : lang === "ko"
+                              ? "한국어"
+                              : "Language"}
+                          </Button>
+                        </Dropdown>
 
-                      <Dropdown.Button
-                        style={{ marginRight: "65px" }}
-                        onClick={onNameClick}
-                        overlay={menu}
-                        icon={<UnorderedListOutlined />}
-                      >
-                        {props.account ? props.account.userName : "Welcome!"}
-                      </Dropdown.Button>
-                    </div>
-                  </Row>
-                </Header>
-              </Layout>
-              <Route key="/" path="/" exact component={AppContent} />
-              <Route
-                key="/weeklyreview"
-                path="/weeklyreview"
-                exact
-                component={WeeklyReview}
-              />
-              <Route
-                key="/monthlyreview"
-                path="/monthlyreview"
-                exact
-                component={MonthlyReview}
-              />
-              <Route
-                key="/dailyhistory"
-                path="/dailyhistory"
-                exact
-                component={DailyHistory}
-              />
-              <Route
-                key="/weeklyworkload"
-                path="/weeklyworkload"
-                exact
-                component={WeeklyWorkload}
-              />
-              {/* <PrivateRoute path="*">
+                        <Dropdown.Button
+                          style={{ marginRight: "65px" }}
+                          onClick={onNameClick}
+                          overlay={menu}
+                          icon={<UnorderedListOutlined />}
+                        >
+                          {account ? account.userName : "Welcome!"}
+                        </Dropdown.Button>
+                      </div>
+                    </Row>
+                  </Header>
+                </Layout>
+                <Route key="/" path="/" exact component={AppContent} />
+                <Route
+                  key="/weeklyreview"
+                  path="/weeklyreview"
+                  exact
+                  component={WeeklyReview}
+                />
+                <Route
+                  key="/monthlyreview"
+                  path="/monthlyreview"
+                  exact
+                  component={MonthlyReview}
+                />
+                <Route
+                  key="/dailyhistory"
+                  path="/dailyhistory"
+                  exact
+                  component={DailyHistory}
+                />
+                <Route
+                  key="/weeklyworkload"
+                  path="/weeklyworkload"
+                  exact
+                  component={WeeklyWorkload}
+                />
+                {/* <PrivateRoute path="*">
                 <Redirect to="/" />
               </PrivateRoute> */}
-              <Footer>
-                <h3 style={{ margin: "20px 20px" }}>
-                  {quotes === null ? null : `"${quotes}"`}
-                </h3>
-                <h3 style={{ margin: "20px 20px" }}>
-                  Copyright © 2002-2020 TechnoStar Co., Ltd.
-                </h3>
-              </Footer>
+                <Footer>
+                  <h3 style={{ margin: "20px 20px" }}>
+                    {quotes === null ? null : `"${quotes}"`}
+                  </h3>
+                  <h3 style={{ margin: "20px 20px" }}>
+                    Copyright © 2002-2020 TechnoStar Co., Ltd.
+                  </h3>
+                </Footer>
+              </Layout>
             </Layout>
-          </Layout>
-        </Fragment>
-      </Switch>
+          </Fragment>
+        </Switch>
+      )}
+      {error && <p className="error">Error: {error}</p>}
+
+      {account && (
+        <div className="data-account">
+          <h2>Session Account Data</h2>
+          <Json data={account} />
+        </div>
+      )}
+      {/* <Route exact path="/login" component={Login} /> */}
     </Router>
   );
 };
 
-Home.propTypes = {
-  account: PropTypes.object,
-  onSignOut: PropTypes.func.isRequired
-};
-
-export default AuthProvider(Home);
+export default Home;

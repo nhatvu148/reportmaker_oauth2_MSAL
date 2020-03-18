@@ -24,7 +24,7 @@ app.use("/api/auth", require("./routes/auth"));
 const db_config = {
   host: "localhost",
   user: "root",
-  password: "14081992",
+  password: "123456789",
   database: "projectdata"
 };
 
