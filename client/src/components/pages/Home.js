@@ -82,6 +82,7 @@ const Home = () => {
       console.log(account.userName);
       getName(account.userName);
     }
+    // eslint-disable-next-line
   }, [account]);
 
   useLayoutEffect(() => {
@@ -120,11 +121,6 @@ const Home = () => {
 
   const toggle = () => {
     setCollapsed(!collapsed);
-  };
-
-  const onEdit = e => {
-    message.info("Editing");
-    // console.log("click", e);
   };
 
   const onNameClick = () => {

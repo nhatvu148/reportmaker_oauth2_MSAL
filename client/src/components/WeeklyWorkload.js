@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import MyContext from "../context/table/myContext";
 import LangContext from "../context/lang/langContext";
 import ProgressBar from "./layout/ProgressBar";
@@ -45,6 +45,8 @@ const WeeklyWorkload = props => {
   const [dataSource, setDataSource] = useState([]);
   const [bySelect, setBySelect] = useState("By Members");
 
+  const G1 = useRef(null);
+
   useEffect(() => {
     if (loading) {
       ProgressBar.start();
@@ -65,14 +67,9 @@ const WeeklyWorkload = props => {
   }, []);
 
   useEffect(() => {
-    let element = document.getElementById("G1");
-    if (element !== null) {
-      while (element.firstChild) {
-        element.removeChild(element.firstChild);
-      }
-    }
+    const element = G1.current;
 
-    const columnPlot = new StackColumn(document.getElementById("G1"), {
+    const columnPlot = new StackColumn(element, {
       forceFit: true,
       title: {
         visible: true,
@@ -101,6 +98,10 @@ const WeeklyWorkload = props => {
     });
 
     columnPlot.render();
+
+    return () => {
+      columnPlot.destroy();
+    };
   }, [dataSource, bySelect, _workloadByMembers, _workloadByProjects]);
 
   const onChangeDate = async date => {
@@ -209,7 +210,7 @@ const WeeklyWorkload = props => {
             </Select>
           </Col>
         </Row>
-        <div id="G1" style={{ height: "822px" }} />
+        <div ref={G1} style={{ height: "822px" }} />
       </Content>
     </Layout>
   );

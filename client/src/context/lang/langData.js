@@ -262,13 +262,13 @@ const langData = {
       _endMin: "结束分钟"
     },
     weeklyWorkload: {
-      _weeklyWorkload: "주간 작업량",
-      _week: "주:",
-      _workload: "작업량:",
-      _byMembers: "회원 별",
-      _byProjects: "프로젝트 별",
-      _workloadByMembers: "회원 별 작업량",
-      _workloadByProjects: "프로젝트 별 작업량"
+      _weeklyWorkload: "每周工作量",
+      _week: "周:",
+      _workload: "工作量:",
+      _byMembers: "按成员",
+      _byProjects: "按项目",
+      _workloadByMembers: "会员的工作量",
+      _workloadByProjects: "项目工作量"
     }
   },
   ko: {

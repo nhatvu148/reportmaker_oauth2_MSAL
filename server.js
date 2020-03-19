@@ -380,17 +380,17 @@ app.get("/api/comments", (req, res) => {
 //   );
 // }
 
-app.use(express.static("client/build"));
+// app.use(express.static("client/build"));
 
-app.get("*", (req, res) =>
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
-);
+// app.get("*", (req, res) =>
+//   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+// );
 
 // For development:
-// const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 // For client build:
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
