@@ -283,7 +283,28 @@ export default (state, action) => {
     case ADD_ROW:
       return {
         ...state,
-        dataSource: [...state.dataSource, action.newData],
+        dataSource: [
+          ...state.dataSource,
+          {
+            key: state.rowCount,
+            selectedProjectId: null,
+            selectedProjectName: null,
+            selectedSubId: null,
+            selectedSubName: null,
+            startTime:
+              state.dataSource.length > 0
+                ? state.dataSource[state.dataSource.length - 1].endTime
+                : null,
+            endTime:
+              state.dataSource.length > 0
+                ? state.dataSource[state.dataSource.length - 1].endTime
+                : null,
+            workTime: "00:00",
+            status: "0",
+            comment: "-",
+            option: []
+          }
+        ],
         rowCount: state.rowCount + 1,
         isDataEdited: true
       };

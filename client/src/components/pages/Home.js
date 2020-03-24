@@ -124,16 +124,6 @@ const Home = () => {
   };
 
   const onNameClick = () => {
-    const myTime = new Date().getHours();
-    let greeting;
-    if (myTime >= 0 && myTime <= 12) {
-      greeting = "Good Morning";
-    } else if (myTime > 12 && myTime <= 18) {
-      greeting = "Good Afternoon";
-    } else {
-      greeting = "Good Evening";
-    }
-    message.info(greeting + ", " + name + " !");
     setVisible(true);
   };
 
